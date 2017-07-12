@@ -17,12 +17,14 @@ public class Viewer {
         System.out.println(player.getName() +" has joined the game. The table is now full, so lets begin: ");
     }
 
-    public void nameTitle(Participant participant) {
-        System.out.println(participant.getName() + ":");
+    public String nameTitle(Participant participant) {
+        return participant.getName() + ":";
     }
 
-    public void showRankAndSuit(Rank rank, Suit suit) {
-        System.out.println(rank + " of " + suit);
+    public String showCard(Card card) {
+        Rank rank = card.getRank();
+        Suit suit = card.getSuit();
+        return rank + " of " + suit;
     }
 
     public void score(Participant player, int handValue) {
@@ -37,9 +39,8 @@ public class Viewer {
         System.out.println(player.getName() + " has BlackJack!");
     }
 
-    public void blackjack(Player player) {
-        System.out.println(player.getName() + " wins with BlackJack!");
-        player.getHand().getCards().clear();
+    public String blackjack(Player player) {
+        return player.getName() + " wins with BlackJack!";
     }
 
     public void standOff(Player player) {

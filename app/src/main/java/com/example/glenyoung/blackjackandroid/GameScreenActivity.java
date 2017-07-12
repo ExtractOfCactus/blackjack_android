@@ -39,12 +39,13 @@ public class GameScreenActivity extends AppCompatActivity {
         player3Name = (TextView) findViewById(R.id.player3_name);
         playerTurn = (TextView) findViewById(R.id.player_turn);
 
-        String nameOfDealer = game.getDealer().getName();
-        dealerName.setText(nameOfDealer);
 
         ArrayList<Player> players = game.getPlayers();
 
         game.initialDeal();
+
+        String nameOfDealer = game.getDealer().getName();
+        dealerName.setText(nameOfDealer + ": " + game.handValue(game.getDealer()));
 
         Player player1 = players.get(0);
         player1Name.setText(player1.getName() + ": " + game.handValue(player1));
@@ -55,12 +56,22 @@ public class GameScreenActivity extends AppCompatActivity {
         Player player3 = players.get(2);
         player3Name.setText(player3.getName() + ": " + game.handValue(player3));
 
+        playerTurn.setText(player1.getName() + ", it is your turn");
+
         if (game.handValue(player1) == 21) {
             index += 1;
+            playerTurn.setText(player2.getName() + ", it is your turn");
+            if (game.handValue(player2) == 21) {
+                index += 1;
+                playerTurn.setText(player3.getName() + ", it is your turn");
+                if (game.handValue(player3) == 21) {
+                    index += 1;
+                    playerTurn.setText(game.getDealer().getName() + ", it is your turn");
+                }
+            }
         }
     }
 
-    
 
     public void onHitButtonClick(View button) {
 
@@ -83,14 +94,29 @@ public class GameScreenActivity extends AppCompatActivity {
 
     public void onStandButtonClick(View button) {
         index += 1;
-        Player player = game.getPlayers().get(index);
-        if (game.handValue(player) == 21) {
-            index += 1;
+        if (index >= 3) {
+            dealerEndgame();
         }
-        if (index == 4) {
-            game.dealerFinish();
+        else {
+            Player player = game.getPlayers().get(index);
+            if (game.handValue(player) == 21) {
+                index += 1;
+            }
+            playerTurn.setText(player.getName() + ", it is your turn");
         }
-        playerTurn.setText(player.getName() + ", it is your turn");
+    }
+
+    public void makeButtonsInvisible() {
+        hitButton.setVisibility(View.INVISIBLE);
+        standButton.setVisibility(View.INVISIBLE);
+    }
+
+    public void dealerEndgame() {
+        makeButtonsInvisible();
+        playerTurn.setText(game.getDealer().getName() + ", it is your turn");
+        game.dealerFinish();
+        int result = game.handValue(game.getDealer());
+        dealerName.setText(game.getDealer().getName() + ": " + result);
     }
 
 

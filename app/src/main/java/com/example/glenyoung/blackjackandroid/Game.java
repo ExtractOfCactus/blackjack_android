@@ -1,5 +1,7 @@
 package com.example.glenyoung.blackjackandroid;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -128,15 +130,6 @@ public class Game {
         return answer;
     }
 
-    public void dealAndDisplay(Participant participant) {
-        dealer.deal(participant);
-        int index = participant.handSize() - 1;
-        Card card = participant.getHand().getCards().get(index);
-        Rank rank = card.getRank();
-        Suit suit = card.getSuit();
-        viewer.showNewCard(participant, rank, suit);
-    }
-
 
     public void playersPlay() {
         viewer.lineBreak();
@@ -147,7 +140,7 @@ public class Game {
             if (!checkBlackjack(player)) {
                 String answer = hitOrStay(player);
                 while (answer.equals("Y") && handValue(player) < 21) {
-                    dealAndDisplay(player);
+                    dealer.deal(player);
                     if (checkBlackjack(player)) {
                         Card dealerFirstCard = dealer.getHand().getCards().get(0);
                         if (rankValue(dealerFirstCard) < 10) {
@@ -168,6 +161,7 @@ public class Game {
                 }
             }
             else viewer.declareBlackjack(player);
+            player.getHand().getCards().clear();
             viewer.lineBreak();
         }
     }
@@ -176,9 +170,7 @@ public class Game {
     public void showCards(Participant participant) {
         viewer.nameTitle(participant);
         for (Card card : participant.getHand().getCards()) {
-            Rank rank = card.getRank();
-            Suit suit = card.getSuit();
-            viewer.showRankAndSuit(rank, suit);
+            viewer.showCard(card);
         }
         viewer.score(participant, handValue(participant));
         viewer.lineBreak();
@@ -202,8 +194,9 @@ public class Game {
 //            viewer.allBust();
             return;
         }
+
         while (handValue(dealer) < 17) {
-            dealAndDisplay(dealer);
+            dealer.deal(dealer);
             if (handValue(dealer) > 21) {
 //                viewer.declareDealerBust();
             }
