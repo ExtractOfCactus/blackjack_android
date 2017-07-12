@@ -131,51 +131,51 @@ public class Game {
     }
 
 
-    public void playersPlay() {
-        viewer.lineBreak();
-        Scanner scanner = new Scanner(System.in);
-        showCards(dealer);
-        for (Player player : players) {
-            showCards(player);
-            if (!checkBlackjack(player)) {
-                String answer = hitOrStay(player);
-                while (answer.equals("Y") && handValue(player) < 21) {
-                    dealer.deal(player);
-                    if (checkBlackjack(player)) {
-                        Card dealerFirstCard = dealer.getHand().getCards().get(0);
-                        if (rankValue(dealerFirstCard) < 10) {
-                            viewer.blackjackWin(player);
-                        }
-                    }
-                    if (handValue(player) == 21) {
-                        viewer.score(player, handValue(player));
-                        break;
-                    }
-                    if (handValue(player) > 21) {
-                        viewer.playerBust(player);
-                        player.getHand().getCards().clear();
-                        break;
-                    }
-                    else viewer.score(player, handValue(player));
-                    answer = scanner.nextLine().toUpperCase();
-                }
-            }
-//            else viewer.declareBlackjack(player);
-            player.getHand().getCards().clear();
-            viewer.lineBreak();
-        }
-    }
+//    public void playersPlay() {
+//        viewer.lineBreak();
+//        Scanner scanner = new Scanner(System.in);
+//        showCards(dealer);
+//        for (Player player : players) {
+//            showCards(player);
+//            if (!checkBlackjack(player)) {
+//                String answer = hitOrStay(player);
+//                while (answer.equals("Y") && handValue(player) < 21) {
+//                    dealer.deal(player);
+//                    if (checkBlackjack(player)) {
+//                        Card dealerFirstCard = dealer.getHand().getCards().get(0);
+//                        if (rankValue(dealerFirstCard) < 10) {
+//                            viewer.blackjackWin(player);
+//                        }
+//                    }
+//                    if (handValue(player) == 21) {
+//                        viewer.score(player, handValue(player));
+//                        break;
+//                    }
+//                    if (handValue(player) > 21) {
+//                        viewer.playerBust(player);
+//                        player.getHand().getCards().clear();
+//                        break;
+//                    }
+//                    else viewer.score(player, handValue(player));
+//                    answer = scanner.nextLine().toUpperCase();
+//                }
+//            }
+////            else viewer.declareBlackjack(player);
+//            player.getHand().getCards().clear();
+//            viewer.lineBreak();
+//        }
+//    }
 
 
-    public void showCards(Participant participant) {
-        viewer.nameTitle(participant);
-        for (Card card : participant.getHand().getCards()) {
-            viewer.showCard(card);
-        }
-        viewer.score(participant, handValue(participant));
-        viewer.lineBreak();
-
-    }
+//    public void showCards(Participant participant) {
+//        viewer.nameTitle(participant);
+//        for (Card card : participant.getHand().getCards()) {
+//            viewer.showCard(card);
+//        }
+//        viewer.score(participant, handValue(participant));
+//        viewer.lineBreak();
+//
+//    }
 
     public boolean noPlayersRemaining() {
         int cardCounter = 0;
@@ -231,13 +231,11 @@ public class Game {
         return false;
     }
 
-    public void playerVsDealerBlackjack() {
-        for (Player player : players) {
-            if (checkBlackjack(player)) {
-                viewer.standOff(player);
-            }
-            else viewer.playerLoses(player);
+    public String playerVsDealerBlackjack(Player player) {
+        if (checkBlackjack(player)) {
+            return viewer.standOff(player);
         }
+        return viewer.playerLoses(player);
     }
 
     public String dealerResult () {
@@ -257,7 +255,7 @@ public class Game {
 
     public String compareHands(Player player) {
         if (checkBlackjack(dealer)) {
-            playerVsDealerBlackjack();
+            return playerVsDealerBlackjack(player);
 //            return;
         }
             if (checkBlackjack(player)) {
@@ -284,13 +282,13 @@ public class Game {
         return "You've fucked up, Glen.";
     }
 
-    public void run() {
-//        populatePlayers();
-
-        initialDeal();
-        playersPlay();
-        showCards(dealer);
-        dealerFinish();
-//        compareHands();
-    }
+//    public void run() {
+////        populatePlayers();
+//
+//        initialDeal();
+//        playersPlay();
+//        showCards(dealer);
+//        dealerFinish();
+////        compareHands();
+//    }
 }

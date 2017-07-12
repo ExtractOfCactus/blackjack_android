@@ -21,8 +21,10 @@ public class GameScreenActivity extends AppCompatActivity {
     private TextView player2Name;
     private TextView player3Name;
     private TextView playerTurn;
+    private TextView player1Cards, player2Cards, player3Cards, dealerCards;
 
     ArrayList<TextView> views;
+    ArrayList<TextView> cards;
     Viewer viewer = new Viewer();
     Game game = new Game(viewer);
 
@@ -44,6 +46,11 @@ public class GameScreenActivity extends AppCompatActivity {
         player3Name = (TextView) findViewById(R.id.player3_name);
         playerTurn = (TextView) findViewById(R.id.player_turn);
 
+        player1Cards = (TextView) findViewById(R.id.player1_cards);
+        player2Cards = (TextView) findViewById(R.id.player2_cards);
+        player3Cards = (TextView) findViewById(R.id.player3_cards);
+        dealerCards = (TextView) findViewById(R.id.dealer_cards);
+
 
         ArrayList<Player> players = game.getPlayers();
         views = new ArrayList<>();
@@ -51,19 +58,29 @@ public class GameScreenActivity extends AppCompatActivity {
         views.add(player2Name);
         views.add(player3Name);
 
+        cards = new ArrayList<>();
+        cards.add(player1Cards);
+        cards.add(player2Cards);
+        cards.add(player3Cards);
+
         game.initialDeal();
+
 
         String nameOfDealer = game.getDealer().getName();
         dealerName.setText(nameOfDealer + ": " + game.handValue(game.getDealer()));
+        dealerCards.setText(viewer.showCards(game.getDealer()));
 
         Player player1 = players.get(0);
         player1Name.setText(player1.getName() + ": " + game.handValue(player1));
+        player1Cards.setText(viewer.showCards(player1));
 
         Player player2 = players.get(1);
         player2Name.setText(player2.getName() + ": " + game.handValue(player2));
+        player2Cards.setText(viewer.showCards(player2));
 
         Player player3 = players.get(2);
         player3Name.setText(player3.getName() + ": " + game.handValue(player3));
+        player3Cards.setText(viewer.showCards(player3));
 
         playerTurn.setText(viewer.turn(player1));
 
@@ -78,6 +95,9 @@ public class GameScreenActivity extends AppCompatActivity {
 
         Player player = game.getPlayers().get(index);
         game.getDealer().deal(player);
+        TextView cardView = cards.get(index);
+        cardView.setText(viewer.showCards(player));
+
 
         TextView view = views.get(index);
         view.setText(viewer.score(player, game.handValue(player)));
@@ -136,6 +156,7 @@ public class GameScreenActivity extends AppCompatActivity {
         }
         else {
             game.dealerFinish();
+            dealerCards.setText(viewer.showCards(game.getDealer()));
             playerTurn.setText("Game Over");
             dealerName.setText(game.dealerResult());
             player1Name.setText(game.compareHands(game.getPlayers().get(0)));

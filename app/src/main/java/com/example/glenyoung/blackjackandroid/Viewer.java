@@ -25,10 +25,14 @@ public class Viewer {
         return participant.getName() + ", it is your turn.";
     }
 
-    public String showCard(Card card) {
-        Rank rank = card.getRank();
-        Suit suit = card.getSuit();
-        return rank + " of " + suit;
+    public String showCards(Participant participant) {
+        String result = "";
+        for (Card card : participant.getHand().getCards()) {
+            Rank rank = card.getRank();
+            Suit suit = card.getSuit();
+             result += rank + " of " + suit + "\n";
+        }
+        return result;
     }
 
     public String score(Participant player, int handValue) {
