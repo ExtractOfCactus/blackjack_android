@@ -128,11 +128,14 @@ public class GameScreenActivity extends AppCompatActivity {
                 if (index > 2) {
                     dealerEndgame();
                 }
-                player = game.getPlayers().get(index);
-                if (game.handValue(player) == 21) {
-                    index += 1;
-                    if (index > 2) {
-                        dealerEndgame();
+                else if (index <= 2){
+                    player = game.getPlayers().get(index);
+
+                    if (game.handValue(player) == 21) {
+                        index += 1;
+                        if (index > 2) {
+                            dealerEndgame();
+                        }
                     }
                 }
             }
