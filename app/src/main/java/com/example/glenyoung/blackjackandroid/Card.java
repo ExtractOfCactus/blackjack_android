@@ -15,7 +15,7 @@ public class Card {
     public Card(Rank rank, Suit suit) {
         this.rank = rank;
         this.suit = suit;
-        this.rankValues = new HashMap<Enum, Integer>();
+        this.rankValues = new HashMap<>();
 
     }
 

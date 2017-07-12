@@ -10,7 +10,7 @@ public class Hand {
     private ArrayList<Card> cards;
 
     public Hand() {
-        this.cards = new ArrayList<Card>();
+        this.cards = new ArrayList<>();
     }
 
     public ArrayList<Card> getCards() {
@@ -23,9 +23,5 @@ public class Hand {
 
     public void addCard(Card card) {
         this.cards.add(card);
-    }
-
-    public void reset() {
-        this.cards = new ArrayList<Card>();
     }
 }

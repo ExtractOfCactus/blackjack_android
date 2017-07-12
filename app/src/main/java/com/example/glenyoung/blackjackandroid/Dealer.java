@@ -15,10 +15,6 @@ public class Dealer extends Participant {
         Collections.shuffle(this.shoe.getDeck());
     }
 
-    public Shoe getShoe() {
-        return this.shoe;
-    }
-
     public void deal(Participant participant) {
         Card card = this.shoe.getFirstCard();
         participant.getHand().addCard(card);

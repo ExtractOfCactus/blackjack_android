@@ -1,10 +1,7 @@
 package com.example.glenyoung.blackjackandroid;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 /**
  * Created by glenyoung on 11/07/2017.
@@ -119,12 +116,8 @@ public class Game {
             viewer.allBust();
             return;
         }
-
         while (handValue(dealer) < 17) {
             dealer.deal(dealer);
-//            if (handValue(dealer) > 21) {
-//                return;
-//            }
         }
     }
 
@@ -170,15 +163,12 @@ public class Game {
         else {
             return viewer.score(dealer, handValue(dealer));
         }
-
-
     }
 
 
     public String compareHands(Player player) {
         if (checkBlackjack(dealer)) {
             return playerVsDealerBlackjack(player);
-//            return;
         }
             if (checkBlackjack(player)) {
                return viewer.blackjackWin(player);
@@ -200,17 +190,7 @@ public class Game {
             else if (isPlayerBust(player)) {
                 return viewer.playerBust(player);
             }
-
         return "You've fucked up, Glen.";
     }
 
-//    public void run() {
-////        populatePlayers();
-//
-//        initialDeal();
-//        playersPlay();
-//        showCards(dealer);
-//        dealerFinish();
-////        compareHands();
-//    }
 }

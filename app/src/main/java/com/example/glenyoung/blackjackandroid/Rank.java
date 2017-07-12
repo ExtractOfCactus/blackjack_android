@@ -17,11 +17,5 @@ public enum Rank {
         TEN,
         JACK,
         QUEEN,
-        KING;
-
-        private int value;
-
-        public int getValue() {
-            return this.value;
-        }
+        KING
 }
