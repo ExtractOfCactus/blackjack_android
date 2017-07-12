@@ -4,28 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blackjack_background"
+    android:background="@drawable/tile"
     tools:context="com.example.glenyoung.blackjackandroid.GameScreenActivity">
 
 
     <TextView
-        android:id="@+id/textView21"
-        android:layout_width="205dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@android:color/background_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <TextView
         android:id="@+id/player_turn"
         android:layout_width="205dp"
-        android:layout_height="22dp"
-        android:layout_marginBottom="7dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:background="@android:color/background_dark"
@@ -36,26 +23,40 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintLeft_toRightOf="@+id/stand_button"
         app:layout_constraintRight_toLeftOf="@+id/hit_button"
-        tools:layout_editor_absoluteY="282dp"
-        app:layout_constraintHorizontal_bias="0.507" />
+        tools:layout_editor_absoluteY="279dp" />
+
+    <TextView
+        android:id="@+id/dealer_cards"
+        android:layout_width="190dp"
+        android:layout_height="110dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="34dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/dealer_name"
-        android:layout_width="165dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="0dp"
+        android:layout_width="190dp"
+        android:layout_height="28dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/holo_green_dark"
+        android:layout_marginTop="4dp"
         android:text="TextView"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/dealer_cards"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -64,11 +65,10 @@
         android:id="@+id/player1_name"
         android:layout_width="150dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginRight="32dp"
-        android:background="@android:color/holo_green_dark"
         android:text="TextView"
-        android:textAlignment="viewStart"
+        android:textAlignment="textEnd"
         android:textColor="#ffffff"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -79,9 +79,8 @@
         android:id="@+id/player3_name"
         android:layout_width="150dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginLeft="32dp"
-        android:background="@android:color/holo_green_dark"
         android:text="TextView"
         android:textAlignment="textStart"
         android:textColor="@android:color/background_light"
@@ -97,7 +96,6 @@
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:background="@android:color/holo_green_dark"
         android:text="TextView"
         android:textAlignment="center"
         android:textColor="#ffffff"
@@ -109,34 +107,9 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/stand_button"
-        android:layout_width="119dp"
-        android:layout_height="67dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="32dp"
-        android:onClick="onStandButtonClick"
-        android:text="@string/stand"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_editor_absoluteY="230dp" />
-
-    <Button
-        android:id="@+id/hit_button"
-        android:layout_width="119dp"
-        android:layout_height="67dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="32dp"
-        android:onClick="onHitButtonClick"
-        android:text="@string/hit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteX="441dp"
-        tools:layout_editor_absoluteY="228dp" />
-
-    <Button
         android:id="@+id/deal_button"
         android:layout_width="141dp"
-        android:layout_height="54dp"
+        android:layout_height="60dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:onClick="onDealButtonClick"
@@ -148,22 +121,23 @@
 
     <TextView
         android:id="@+id/player3_cards"
-        android:layout_width="165dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="27dp"
+        android:layout_width="190dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="4dp"
         android:text="TextView"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/stand_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
         android:id="@+id/player2_cards"
-        android:layout_width="165dp"
+        android:layout_width="190dp"
         android:layout_height="100dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:text="TextView"
@@ -171,43 +145,47 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="32dp" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/player1_cards"
-        android:layout_width="165dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="26dp"
+        android:layout_width="190dp"
+        android:layout_height="200dp"
+        android:layout_marginRight="4dp"
         android:text="TextView"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/hit_button"
         app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="110dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp" />
 
-    <TextView
-        android:id="@+id/dealer_cards"
-        android:layout_width="165dp"
-        android:layout_height="100dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="38dp"
-        android:backgroundTint="@android:color/holo_green_dark"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintLeft_toLeftOf="parent"
+    <Button
+        android:id="@+id/stand_button"
+        android:layout_width="140dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="32dp"
+        android:onClick="onStandButtonClick"
+        android:text="@string/stand"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/hit_button"
+        android:layout_width="140dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="32dp"
+        android:onClick="onHitButtonClick"
+        android:text="@string/hit"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="441dp"
+        tools:layout_editor_absoluteY="228dp" />
 
 </android.support.constraint.ConstraintLayout>
