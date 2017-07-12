@@ -21,54 +21,58 @@ public class Viewer {
         return participant.getName() + ":";
     }
 
+    public String turn(Participant participant) {
+        return participant.getName() + ", it is your turn.";
+    }
+
     public String showCard(Card card) {
         Rank rank = card.getRank();
         Suit suit = card.getSuit();
         return rank + " of " + suit;
     }
 
-    public void score(Participant player, int handValue) {
-        System.out.println(player.getName() + " has " + handValue);
+    public String score(Participant player, int handValue) {
+        return player.getName() + " has " + handValue;
     }
 
     public void offerCard(Player player) {
         System.out.println(player.getName() + ": Would you like to take a card? (Y/N)");
     }
 
-    public void declareBlackjack(Participant player) {
-        System.out.println(player.getName() + " has BlackJack!");
+    public String declareBlackjack(Participant player) {
+        return (player.getName() + " has BlackJack!");
     }
 
-    public String blackjack(Player player) {
+    public String blackjackWin(Player player) {
         return player.getName() + " wins with BlackJack!";
     }
 
-    public void standOff(Player player) {
-        System.out.println(player.getName() + " has a stand off by matching the dealer");
+    public String standOff(Player player) {
+        return player.getName() + " has a stand off by matching the dealer";
     }
 
-    public void playerWins(Player player) {
-        System.out.println(player.getName() + " wins!");
+    public String playerWins(Player player) {
+        return player.getName() + " wins!";
     }
 
-    public void playerLoses(Player player) {
-        System.out.println(player.getName() + " loses.");
+    public String playerLoses(Player player) {
+        return player.getName() + " loses.";
     }
 
-    public void playerBust(Player player) {
-        System.out.println(player.getName() + " is bust and loses!");
+    public String playerBust(Player player) {
+        return player.getName() + " is bust and loses!";
     }
 
-    public void showNewCard(Participant participant, Rank rank, Suit suit) {
-        System.out.println(participant.getName() + " draws the " + rank + " of " + suit);
+    public String showNewCard(Participant participant, Rank rank, Suit suit) {
+       return participant.getName() + " draws the " + rank + " of " + suit;
     }
 
-    public void declareDealerBust() {
-        System.out.println("Dealer has bust!");
+    public String declareDealerBust() {
+        return "Dealer has bust!";
     }
 
-    public void allBust() {
-        System.out.println("All players have bust!");
+    public String allBust() {
+        return "All players have bust!";
     }
 
     public void lineBreak() {

@@ -12,14 +12,17 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class GameScreenActivity extends AppCompatActivity {
-    int index;
-    Button hitButton;
-    Button standButton;
-    TextView dealerName;
-    TextView player1Name;
-    TextView player2Name;
-    TextView player3Name;
-    TextView playerTurn;
+    private int index;
+    private Button hitButton;
+    private Button standButton;
+    private Button dealButton;
+    private TextView dealerName;
+    private TextView player1Name;
+    private TextView player2Name;
+    private TextView player3Name;
+    private TextView playerTurn;
+
+    ArrayList<TextView> views;
     Viewer viewer = new Viewer();
     Game game = new Game(viewer);
 
@@ -33,6 +36,8 @@ public class GameScreenActivity extends AppCompatActivity {
 
         hitButton = (Button) findViewById(R.id.hit_button);
         standButton = (Button) findViewById(R.id.stand_button);
+        dealButton = (Button) findViewById(R.id.deal_button);
+        dealButton.setVisibility(View.INVISIBLE);
         dealerName = (TextView) findViewById(R.id.dealer_name);
         player1Name = (TextView) findViewById(R.id.player1_name);
         player2Name = (TextView) findViewById(R.id.player2_name);
@@ -41,6 +46,10 @@ public class GameScreenActivity extends AppCompatActivity {
 
 
         ArrayList<Player> players = game.getPlayers();
+        views = new ArrayList<>();
+        views.add(player1Name);
+        views.add(player2Name);
+        views.add(player3Name);
 
         game.initialDeal();
 
@@ -56,19 +65,11 @@ public class GameScreenActivity extends AppCompatActivity {
         Player player3 = players.get(2);
         player3Name.setText(player3.getName() + ": " + game.handValue(player3));
 
-        playerTurn.setText(player1.getName() + ", it is your turn");
+        playerTurn.setText(viewer.turn(player1));
 
-        if (game.handValue(player1) == 21) {
-            index += 1;
-            playerTurn.setText(player2.getName() + ", it is your turn");
-            if (game.handValue(player2) == 21) {
-                index += 1;
-                playerTurn.setText(player3.getName() + ", it is your turn");
-                if (game.handValue(player3) == 21) {
-                    index += 1;
-                    playerTurn.setText(game.getDealer().getName() + ", it is your turn");
-                }
-            }
+        if (game.checkBlackjack(player1)) {
+            player1Name.setText(viewer.declareBlackjack(player1));
+            onStandButtonClick(standButton);
         }
     }
 
@@ -78,32 +79,49 @@ public class GameScreenActivity extends AppCompatActivity {
         Player player = game.getPlayers().get(index);
         game.getDealer().deal(player);
 
-        Player player1 = game.getPlayers().get(0);
-        player1Name.setText(player1.getName() + ": " + game.handValue(player1));
+        TextView view = views.get(index);
+        view.setText(viewer.score(player, game.handValue(player)));
 
-        Player player2 = game.getPlayers().get(1);
-        player2Name.setText(player2.getName() + ": " + game.handValue(player2));
-
-        Player player3 = game.getPlayers().get(2);
-        player3Name.setText(player3.getName() + ": " + game.handValue(player3));
-
-        if (game.handValue(player) == 21 || game.isPlayerBust(player)) {
+        if (game.handValue(player) == 21) {
+            onStandButtonClick(standButton);
+        }
+        if (game.isPlayerBust(player)) {
+            view.setText(viewer.playerBust(player));
             onStandButtonClick(standButton);
         }
     }
 
     public void onStandButtonClick(View button) {
+        if (index > 2) {
+            dealerEndgame();
+        }
         index += 1;
-        if (index >= 3) {
+        if (index > 2) {
             dealerEndgame();
         }
         else {
             Player player = game.getPlayers().get(index);
-            if (game.handValue(player) == 21) {
+            if (game.checkBlackjack(player)) {
+                TextView view = views.get(index);
+                view.setText(viewer.declareBlackjack(player));
                 index += 1;
+                if (index > 2) {
+                    dealerEndgame();
+                }
+                player = game.getPlayers().get(index);
+                if (game.handValue(player) == 21) {
+                    index += 1;
+                    if (index > 2) {
+                        dealerEndgame();
+                    }
+                }
             }
-            playerTurn.setText(player.getName() + ", it is your turn");
+            playerTurn.setText(viewer.turn(player));
         }
+    }
+
+    public void onDealButtonClick(View button) {
+        recreate();
     }
 
     public void makeButtonsInvisible() {
@@ -113,10 +131,18 @@ public class GameScreenActivity extends AppCompatActivity {
 
     public void dealerEndgame() {
         makeButtonsInvisible();
-        playerTurn.setText(game.getDealer().getName() + ", it is your turn");
-        game.dealerFinish();
-        int result = game.handValue(game.getDealer());
-        dealerName.setText(game.getDealer().getName() + ": " + result);
+        if (game.allBust()) {
+            playerTurn.setText(viewer.allBust());
+        }
+        else {
+            game.dealerFinish();
+            playerTurn.setText("Game Over");
+            dealerName.setText(game.dealerResult());
+            player1Name.setText(game.compareHands(game.getPlayers().get(0)));
+            player2Name.setText(game.compareHands(game.getPlayers().get(1)));
+            player3Name.setText(game.compareHands(game.getPlayers().get(2)));
+        }
+        dealButton.setVisibility(View.VISIBLE);
     }
 
 

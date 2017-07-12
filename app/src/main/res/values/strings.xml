@@ -3,4 +3,5 @@
     <string name="alt_app_name">Non-dodgy Blackjack</string>
     <string name="stand">Stand</string>
     <string name="hit">Hit</string>
+    <string name="deal">Deal</string>
 </resources>

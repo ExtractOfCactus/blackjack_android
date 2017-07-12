@@ -144,7 +144,7 @@ public class Game {
                     if (checkBlackjack(player)) {
                         Card dealerFirstCard = dealer.getHand().getCards().get(0);
                         if (rankValue(dealerFirstCard) < 10) {
-                            viewer.blackjack(player);
+                            viewer.blackjackWin(player);
                         }
                     }
                     if (handValue(player) == 21) {
@@ -160,7 +160,7 @@ public class Game {
                     answer = scanner.nextLine().toUpperCase();
                 }
             }
-            else viewer.declareBlackjack(player);
+//            else viewer.declareBlackjack(player);
             player.getHand().getCards().clear();
             viewer.lineBreak();
         }
@@ -191,7 +191,7 @@ public class Game {
 
     public void dealerFinish() {
         if (noPlayersRemaining()) {
-//            viewer.allBust();
+            viewer.allBust();
             return;
         }
 
@@ -207,7 +207,17 @@ public class Game {
     }
 
     public boolean isPlayerBust(Player player) {
-        if (handValue(player) > 21) {
+        return (handValue(player) > 21);
+    }
+
+    public boolean allBust() {
+        int bustCounter = 0;
+        for (Player player : players) {
+            if (isPlayerBust(player)) {
+                bustCounter += 1;
+            }
+        }
+        if (bustCounter == 3) {
             return true;
         }
         return false;
@@ -230,32 +240,48 @@ public class Game {
         }
     }
 
-
-    public void compareHands() {
-        if (checkBlackjack(dealer)) {
-            viewer.declareBlackjack(dealer);
-            playerVsDealerBlackjack();
-            return;
+    public String dealerResult () {
+        if (handValue(dealer) == 21 && dealer.handSize() == 2) {
+            return viewer.declareBlackjack(dealer);
         }
-        for (Player player : players) {
+        else if (handValue(dealer) > 21) {
+            return viewer.declareDealerBust();
+        }
+        else {
+            return viewer.score(dealer, handValue(dealer));
+        }
+
+
+    }
+
+
+    public String compareHands(Player player) {
+        if (checkBlackjack(dealer)) {
+            playerVsDealerBlackjack();
+//            return;
+        }
             if (checkBlackjack(player)) {
-                viewer.blackjack(player);
+               return viewer.blackjackWin(player);
             }
             if (handValue(dealer) < 22 && (handValue(player) < 22 && player.handSize() != 0)) {
                 if (handValue(player) == handValue(dealer)) {
-                    viewer.standOff(player);
+                    return viewer.standOff(player);
                 }
                 else if (handValue(player) > handValue(dealer)) {
-                    viewer.playerWins(player);
+                    return  viewer.playerWins(player);
                 }
                 else if (handValue(player) < handValue(dealer)) {
-                    viewer.playerLoses(player);
+                    return viewer.playerLoses(player);
                 }
             }
-            else if (dealerBust() && (handValue(player) < 22 && player.handSize() != 0)) {
-                viewer.playerWins(player);
+            else if (dealerBust() && handValue(player) < 22) {
+                 return viewer.playerWins(player);
             }
-        }
+            else if (isPlayerBust(player)) {
+                return viewer.playerBust(player);
+            }
+
+        return "You've fucked up, Glen.";
     }
 
     public void run() {
@@ -265,6 +291,6 @@ public class Game {
         playersPlay();
         showCards(dealer);
         dealerFinish();
-        compareHands();
+//        compareHands();
     }
 }
