@@ -33,7 +33,7 @@ public class Viewer {
     }
 
     public String standOff(Player player) {
-        return player.getName() + " has a stand off by matching the dealer";
+        return player.getName() + " has a stand off!";
     }
 
     public String playerWins(Player player) {
@@ -45,7 +45,7 @@ public class Viewer {
     }
 
     public String playerBust(Player player) {
-        return player.getName() + " is bust and loses!";
+        return player.getName() + " is bust!";
     }
 
     public String declareDealerBust() {
@@ -55,5 +55,5 @@ public class Viewer {
     public String allBust() {
         return "All players have bust!";
     }
-    
+
 }
