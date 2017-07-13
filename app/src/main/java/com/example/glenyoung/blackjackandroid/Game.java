@@ -110,10 +110,26 @@ public class Game {
         return false;
     }
 
+    public boolean shouldDealerStop() {
+        int outCouter = 0;
+        for (Player player : players) {
+            if (isPlayerBust(player) || checkBlackjack(player)) {
+                outCouter += 1;
+            }
+        }
+        if (outCouter == 3) {
+            return true;
+        }
+        return false;
+    }
+
 
     public void dealerFinish() {
         if (noPlayersRemaining()) {
             viewer.allBust();
+            return;
+        }
+        if (shouldDealerStop()) {
             return;
         }
         while (handValue(dealer) < 17) {

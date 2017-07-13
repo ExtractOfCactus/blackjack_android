@@ -139,7 +139,9 @@ public class GameScreenActivity extends AppCompatActivity {
                     }
                 }
             }
-            playerTurn.setText(viewer.turn(player));
+            if (index < 3) {
+                playerTurn.setText(viewer.turn(player));
+            }
         }
     }
 
